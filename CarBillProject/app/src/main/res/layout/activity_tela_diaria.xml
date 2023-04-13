@@ -11,6 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
         android:text="Corridas do Dia"
         android:textColor="@color/black"
         android:textSize="42dp"

@@ -12,10 +12,13 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".TelaConfiguracoes"
-            android:parentActivityName=".MainActivity"
-            android:label="Configurações"
+            android:name=".AdicionarPessoa"
             android:exported="false" />
+        <activity
+            android:name=".TelaConfiguracoes"
+            android:exported="false"
+            android:label="Configurações"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".TelaAddPerson"
             android:exported="false"

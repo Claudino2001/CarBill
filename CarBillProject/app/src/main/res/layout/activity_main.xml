@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:fontFamily="sans-serif"
+        android:foregroundGravity="center"
+        android:gravity="center"
         android:text="Car Bill"
         android:textColor="@color/black"
         android:textSize="42dp"
