@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Definição das cores personalizadas -->
+    <color name="minha_cor_primaria">#FFFFFF</color>
+    <color name="minha_cor_primaria_escuro">#CCCCCC</color>
+    <color name="minha_cor_de_destaque">#000000</color>
+
+    <!-- Definição do estilo do aplicativo -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Definição da cor primária -->
+        <item name="colorPrimary">@color/minha_cor_primaria</item>
+        <!-- Definição da variação mais escura da cor primária -->
+        <item name="colorPrimaryDark">@color/minha_cor_primaria_escuro</item>
+        <!-- Definição da cor de destaque -->
+        <item name="colorAccent">@color/minha_cor_de_destaque</item>
+        <!-- Definição das propriedades da barra de status -->
+        <item name="android:statusBarColor">@color/minha_cor_primaria</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Definição das propriedades da barra de navegação -->
+        <item name="android:navigationBarColor">@color/minha_cor_primaria</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <!-- Adicione outros itens aqui, se necessário -->
+    </style>
+</resources>
