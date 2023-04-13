@@ -60,11 +60,11 @@
         android:background="@color/white" />
 
     <Button
-        android:id="@+id/btnPessoa"
+        android:id="@+id/btnInfoPessoa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
-        android:text="btnPessoa"
+        android:text="Informações da Pessoa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TelaAddPerson">
+    tools:context=".TelaInfoPerson">
 
     <TextView
         android:id="@+id/titulodaTelaCorridaDiaria"
@@ -13,7 +13,7 @@
         android:layout_marginTop="52dp"
         android:foregroundGravity="center"
         android:gravity="center"
-        android:text="Adicionar Pessoa"
+        android:text="Nome da Pessoa"
         android:textColor="@color/black"
         android:textSize="42dp"
         android:textStyle="bold"

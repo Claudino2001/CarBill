@@ -20,7 +20,7 @@
             android:label="Configurações"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".TelaAddPerson"
+            android:name=".TelaInfoPerson"
             android:exported="false"
             android:label="Adicionar Pessoa"
             android:parentActivityName=".MainActivity"

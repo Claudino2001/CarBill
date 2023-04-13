@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     public FloatingActionButton buttonCorridaDiaria, buttonAddNewPerson;
     public ImageButton buttonConfig;
-    public Button btnPessoa;
+    public Button btnInfoPessoa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         buttonCorridaDiaria = (FloatingActionButton) findViewById(R.id.buttonCorridaDiaria);
         buttonAddNewPerson = (FloatingActionButton) findViewById(R.id.buttonAddNewPerson);
         buttonConfig = (ImageButton) findViewById(R.id.buttonConfig);
-        btnPessoa = (Button) findViewById(R.id.btnPessoa);
+        btnInfoPessoa = (Button) findViewById(R.id.btnInfoPessoa);
 
         buttonCorridaDiaria.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAddNewPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, TelaAddPerson.class));
+                startActivity(new Intent(MainActivity.this, AdicionarPessoa.class));
             }
         });
 
@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnPessoa.setOnClickListener(new View.OnClickListener() {
+        btnInfoPessoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AdicionarPessoa.class));
+                startActivity(new Intent(MainActivity.this, TelaInfoPerson.class));
             }
         });
 
