@@ -54,20 +54,34 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_settings_24"
-        android:background="@color/white" />
+        app:srcCompat="@drawable/baseline_settings_24" />
 
-    <Button
-        android:id="@+id/btnInfoPessoa"
+    <TextView
+        android:id="@+id/textValorTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
-        android:text="Informações da Pessoa"
+        android:layout_marginTop="48dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="TOTAL\nR$: --,--"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+
+    <ListView
+        android:id="@+id/listviewTelaInicial"
+        android:layout_width="336dp"
+        android:layout_height="333dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCorridaDiaria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textValorTotal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
