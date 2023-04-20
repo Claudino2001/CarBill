@@ -1,0 +1,97 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS tb_pessoa(
+    id_pessoa INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR (100) NOT NULL,
+    sobrenome VARCHAR (100) NOT NULL,
+    apelido VARCHAR (100) NOT NULL,
+    telefone VARCHAR (100) NOT NULL,
+    rua VARCHAR (100) NOT NULL,
+    bairro VARCHAR (100) NOT NULL,
+    numero VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tb_viagem(
+    id_viagem INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_pessoa INTEGER NOT NULL,
+    id_tipo INTEGER NOT NULL,
+    data DATE NOT NULL,
+    valor DECIMAL(10,5) NOT NULL,
+    FOREIGN KEY (id_pessoa) REFERENCES tb_pessoa(id_pessoa),
+    FOREIGN KEY (id_tipo) REFERENCES tb_tipo(id_tipo)
+);
+
+CREATE TABLE IF NOT EXISTS tb_tipo(
+    id_tipo INTEGER PRIMARY KEY AUTOINCREMENT,
+    tipo VARCHAR(10) NOT NULL 
+);
+
+SELECT * FROM TB_PESSOA;
+drop table tb_pessoa;
+
+SELECT * FROM TB_VIAGEM;
+drop table tb_viagem;
+
+SELECT * FROM TB_TIPO;
+drop table tb_tipo;
+
+-- ADICIONANDO CARONA
+INSERT INTO tb_pessoa VALUES(NULL, 'Gabriel', 'Claudino', 'Biel', '(01)1234-1234', 'Rua A', 'Bairro Aqui', '22');
+INSERT INTO tb_pessoa VALUES(NULL, 'Marina', 'Oliveira', 'Mari', '(01)2345-2345', 'Rua G', 'Bairro Aqui', '27');
+INSERT INTO tb_pessoa VALUES(NULL, 'Rafael', 'Santana', 'Rafa', '(01)3456-3456', 'Rua H', 'Bairro Ali', '31');
+INSERT INTO tb_pessoa VALUES(NULL, 'Juliana', 'Silveira', 'Juju', '(01)4567-4567', 'Rua I', 'Bairro Cá', '20');
+
+-- ALTERANDO O VALOR DE UMA CARONA JA REALIZADA
+UPDATE tb_viagem SET valor = 69.24 WHERE id_pessoa = 1 and data = '2023/04/15' and id_tipo = 2;
+
+-- TIPO DE VIAGEM
+INSERT INTO TB_TIPO VALUES(NULL, 'IDA');
+INSERT INTO TB_TIPO VALUES(NULL, 'VOLTA');
+
+-- ADICIONAR CORRIDA DIARIA
+-- DIA 15
+INSERT INTO tb_viagem VALUES(NULL, 1, 1,'2023/04/15', 3.5);
+INSERT INTO tb_viagem VALUES(NULL, 1, 2,'2023/04/15', 3.5);
+
+INSERT INTO tb_viagem VALUES(NULL, 2, 1,'2023/04/15', 3.5);
+INSERT INTO tb_viagem VALUES(NULL, 2, 2,'2023/04/15', 3.5);
+
+INSERT INTO tb_viagem VALUES(NULL, 3, 1,'2023/04/15', 3.5);
+
+INSERT INTO tb_viagem VALUES(NULL, 4, 2,'2023/04/15', 3.5);
+-- DIA 16
+INSERT INTO tb_viagem VALUES(NULL, 1, 2,'2023/04/16', 3.5);
+
+INSERT INTO tb_viagem VALUES(NULL, 2, 1,'2023/04/16', 3.5);
+
+INSERT INTO tb_viagem VALUES(NULL, 3, 1,'2023/04/16', 3.5);
+INSERT INTO tb_viagem VALUES(NULL, 3, 2,'2023/04/16', 3.5);
+
+INSERT INTO tb_viagem VALUES(NULL, 4, 1,'2023/04/16', 3.5);
+-- DIA 17
+INSERT INTO tb_viagem VALUES(NULL, 2, 1,'2023/04/17', 3.5);
+INSERT INTO tb_viagem VALUES(NULL, 2, 2,'2023/04/17', 3.5);
+
+INSERT INTO tb_viagem VALUES(NULL, 3, 1,'2023/04/17', 3.5);
+INSERT INTO tb_viagem VALUES(NULL, 3, 2,'2023/04/17', 3.5);
+
+INSERT INTO tb_viagem VALUES(NULL, 4, 2,'2023/04/17', 3.5);
+
+-- INNER JOIN TODAS AS TABELAS
+SELECT * FROM TB_PESSOA 
+    INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa 
+    INNER JOIN tb_tipo ON tb_viagem.id_tipo = tb_tipo.id_tipo 
+    order by data;
+
+-- DIVIDA TOTAL DE TODAS AS PESSOAS
+SELECT SUM(valor) FROM TB_PESSOA 
+    INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa 
+    INNER JOIN tb_tipo ON tb_viagem.id_tipo = tb_tipo.id_tipo 
+    order by data;
+    
+-- TELA INICIAL COM NOME E QUANTO CADA UM DEVE NO TOTAL
+SELECT id_pessoa Id, nome Nome, SUM(valor) Total FROM TB_PESSOA 
+INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa 
+    INNER JOIN tb_tipo ON tb_viagem.id_tipo = tb_tipo.id_tipo
+    group by nome 
+    order by data;

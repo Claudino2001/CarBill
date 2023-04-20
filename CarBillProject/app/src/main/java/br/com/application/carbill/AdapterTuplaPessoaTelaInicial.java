@@ -30,7 +30,6 @@ public class AdapterTuplaPessoaTelaInicial extends ArrayAdapter<ClassPessoa> {
 
         txt_apelido.setText(elementos.get(position).getApelido());
         txt_divida_total.setText(String.valueOf("R$: " + elementos.get(position).getDivida_total())); //Colocar aqui divida total
-
         return rowView;
     }
 }
