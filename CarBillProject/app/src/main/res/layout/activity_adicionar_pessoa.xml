@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.235">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/textAddNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -43,7 +43,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/textAddSobrenome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -51,7 +51,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName7"
+            android:id="@+id/textAddApelido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -59,7 +59,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/textAddTelefone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -67,7 +67,7 @@
             android:inputType="phone" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/textAddRua"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -75,7 +75,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/textAddBairro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -83,7 +83,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName6"
+            android:id="@+id/textAddNumero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -91,7 +91,7 @@
             android:inputType="number" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonAddPessoa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"

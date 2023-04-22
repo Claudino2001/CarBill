@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     public FloatingActionButton buttonCorridaDiaria, buttonAddNewPerson;
     public ImageButton buttonConfig;
+    public TextView textValorTotal;
     public ListView listviewTelaInicial;
     private SQLiteDatabase banco;
     private static final String DATABASE_NAME = "banco_de_dados_carbill";
@@ -29,14 +31,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        criarBancoDeDados();
-        listarDadosTelaInicial();
-
         buttonCorridaDiaria = (FloatingActionButton) findViewById(R.id.buttonCorridaDiaria);
         buttonAddNewPerson = (FloatingActionButton) findViewById(R.id.buttonAddNewPerson);
         buttonConfig = (ImageButton) findViewById(R.id.buttonConfig);
         listviewTelaInicial = (ListView) findViewById(R.id.listviewTelaInicial);
+        textValorTotal = (TextView) findViewById(R.id.textValorTotal);
 
+        criarBancoDeDados();
+        listarDadosTelaInicial();
 
         //btnInfoPessoa = (Button) findViewById(R.id.btnInfoPessoa);
         /*
@@ -67,36 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-                btnInfoPessoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, TelaInfoPerson.class));
-            }
-        });
-         */
     }
-
-    /*
-    private ArrayList<ClassPessoa> addPessoas() {
-            ArrayList<ClassPessoa> pessoas = new ArrayList<ClassPessoa>();
-            ClassPessoa e = new ClassPessoa("Gabriel", "Claudino", "Dinho", "xxxxxxx", "Rua", "Bairro", "R$: 45,00");
-            pessoas.add(e);
-            e = new ClassPessoa("Amanda", "Leal", "Amandinha", "xxxxxxx", "Rua", "Bairro", "R$: 14,50");
-            pessoas.add(e);
-            e = new ClassPessoa("Gabriel", "Claudino", "Rafinha", "xxxxxxx", "Rua", "Bairro", "R$: 7,50");
-            pessoas.add(e);
-            e = new ClassPessoa("Gabriel", "Claudino", "Pedrinho", "xxxxxxx", "Rua", "Bairro", "R$: 23,45");
-            pessoas.add(e);
-            e = new ClassPessoa("Amanda", "Leal", "Gabriel", "xxxxxxx", "Rua", "Bairro", "R$: 19,50");
-            pessoas.add(e);
-            e = new ClassPessoa("Gabriel", "Claudino", "Araujo", "xxxxxxx", "Rua", "Bairro", "R$: 10,50");
-            pessoas.add(e);
-            e = new ClassPessoa("Gabriel", "Claudino", "Jaspion", "xxxxxxx", "Rua", "Bairro", "R$: 73,25");
-            pessoas.add(e);
-            return pessoas;
-        }
-     */
 
     public void criarBancoDeDados(){
         try{
@@ -125,6 +98,13 @@ public class MainActivity extends AppCompatActivity {
                     "id_tipo INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "tipo VARCHAR(10) NOT NULL " +
                     ");");
+
+            //EXECUTAR SÓ UMA VEZ
+            //banco.execSQL("INSERT INTO tb_pessoa (nome, sobrenome, apelido, telefone, rua, bairro, numero) VALUES ('fulano', 'de tal', 'teste', 123, '234', '234', '123');");
+            //banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('IDA');");
+            //banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('VOLTA');");
+            //banco.execSQL("INSERT INTO tb_viagem (id_pessoa, id_tipo, data, valor) VALUES (1, 1, '2023-01-01', 5.50);");
+
             banco.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -134,18 +114,34 @@ public class MainActivity extends AppCompatActivity {
     public void listarDadosTelaInicial(){
         try{
             banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+
             Cursor meuCursor = banco.rawQuery("SELECT nome, SUM(valor) Total FROM TB_PESSOA " +
                     "INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa " +
                     "INNER JOIN tb_tipo ON tb_viagem.id_tipo = tb_tipo.id_tipo " +
                     "group by nome " +
                     "order by data;", null);
-            ArrayList<ClassPessoa> pessoas = new ArrayList<ClassPessoa>();
-            ArrayAdapter adapter = new AdapterTuplaPessoaTelaInicial(this, pessoas);
-            listviewTelaInicial.setAdapter(adapter);
-            meuCursor.moveToFirst();
-            while (meuCursor != null){
-                //pessoas.add(meuCursor.getClass());
-                meuCursor.moveToNext();
+
+            ArrayList<PessoaResumoTelaInical> pessoas = new ArrayList<PessoaResumoTelaInical>();
+
+            if (meuCursor.moveToFirst()) {
+                do {
+                    String nome = meuCursor.getString((int) meuCursor.getColumnIndex("nome"));
+                    double total = meuCursor.getDouble((int) meuCursor.getColumnIndex("Total"));
+                    PessoaResumoTelaInical pessoa = new PessoaResumoTelaInical(nome, total);
+                    pessoas.add(pessoa);
+                } while (meuCursor.moveToNext());
+
+                ArrayAdapter<PessoaResumoTelaInical> adapter = new AdapterTuplaPessoaTelaInicial(this, pessoas);
+
+                double total_das_dividas = 0.0f;
+                for(int i =0; i < pessoas.size(); i++){
+                    total_das_dividas += pessoas.get(i).getTotal();
+                }
+
+                System.out.println(">>>>> Total das dividas: " + total_das_dividas + "\n");
+                listviewTelaInicial.setAdapter(adapter);
+                textValorTotal.setText("TOTAL\nR$: " + total_das_dividas);
+                banco.close();
             }
 
         }catch (Exception e){
