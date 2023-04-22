@@ -2,6 +2,7 @@ package br.com.application.carbill;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -98,10 +99,19 @@ public class TelaDiaria extends AppCompatActivity {
 
     void registrarCorridaDiaria(){
         ArrayAdapter<PessoaResumoTelaDiaria> tuplas = listarDadosCorridaDiaria();
+        Context context;
         int position = 1;
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println("id_pessoa: " + tuplas.getItem(position).getId_pessoa() + "\nNome: " + tuplas.getItem(position).getNome());
+
+        //View rowView = tuplas.getView(position);
+
+        //boolean tf = rowView.findViewById(R.id.checkBoxIda).is
+        //System.out.println(String.valueOf(tf));
+
         //View rowView = listviewCorridasDiaria.getChildAt(position);
         //checkBoxIda = (CheckBox) rowView.findViewById(R.id.checkBoxIda);
+
         //checkBoxVolta = (CheckBox) rowView.findViewById(R.id.checkBoxVolta);
         //txt_nome = (TextView) rowView.findViewById(R.id.txt_nome);
         //System.out.println(txt_nome + " " + String.valueOf(checkBoxIda.isChecked()) + " " + String.valueOf(checkBoxVolta.isChecked()));
