@@ -1,9 +1,12 @@
 package br.com.application.carbill;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ public class AdapterTuplaPessoaTelaInicial extends ArrayAdapter<PessoaResumoTela
 
         txt_apelido.setText(elementos.get(position).getNome());
         txt_divida_total.setText(String.valueOf("R$: " + elementos.get(position).getTotal()));
+
         return rowView;
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,10 +28,28 @@ public class AdapterTuplaPessoaTelaDiaria extends ArrayAdapter<PessoaResumoTelaD
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.tupla_corrida_diaria, parent, false);
         TextView txt_nome = (TextView) rowView.findViewById(R.id.txt_nome);
+
         CheckBox checkBoxIda = (CheckBox) rowView.findViewById(R.id.checkBoxIda);
         CheckBox checkBoxVolta = (CheckBox) rowView.findViewById(R.id.checkBoxVolta);
 
         txt_nome.setText(elementos.get(position).getNome());
+
+        checkBoxIda.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                elementos.get(position).setIda(isChecked);
+                checkBoxIda.setChecked(elementos.get(position).isIda());
+            }
+        });
+
+        checkBoxVolta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                elementos.get(position).setVolta(isChecked);
+                checkBoxVolta.setChecked(elementos.get(position).isVolta());
+            }
+        });
+
         return rowView;
     }
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ public class TelaDiaria extends AppCompatActivity {
     private SQLiteDatabase banco;
     public CheckBox checkBoxIda, checkBoxVolta;
     private static final String DATABASE_NAME = "banco_de_dados_carbill";
+    private ArrayAdapter<PessoaResumoTelaDiaria> tupla_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class TelaDiaria extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 registrarCorridaDiaria();
+                finish();
             }
         });
 
@@ -71,7 +74,7 @@ public class TelaDiaria extends AppCompatActivity {
     public ArrayAdapter<PessoaResumoTelaDiaria> listarDadosCorridaDiaria(){
 
         ArrayList<PessoaResumoTelaDiaria> pessoas = new ArrayList<PessoaResumoTelaDiaria>();
-        ArrayAdapter<PessoaResumoTelaDiaria> adapter = new AdapterTuplaPessoaTelaDiaria(this, pessoas);
+        tupla_adapter = new AdapterTuplaPessoaTelaDiaria(this, pessoas);
 
         try{
             banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
@@ -86,7 +89,7 @@ public class TelaDiaria extends AppCompatActivity {
                     pessoas.add(pessoa);
                 } while (meuCursor.moveToNext());
 
-                listviewCorridasDiaria.setAdapter(adapter);
+                listviewCorridasDiaria.setAdapter(tupla_adapter);
                 banco.close();
             }
 
@@ -94,28 +97,59 @@ public class TelaDiaria extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        return adapter;
+        return tupla_adapter;
     }
 
     void registrarCorridaDiaria(){
-        ArrayAdapter<PessoaResumoTelaDiaria> tuplas = listarDadosCorridaDiaria();
-        Context context;
-        int position = 1;
-        System.out.println("<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>");
-        System.out.println("id_pessoa: " + tuplas.getItem(position).getId_pessoa() + "\nNome: " + tuplas.getItem(position).getNome());
+        for(int i=0; i<tupla_adapter.getCount(); i++){
+            String nome = ((PessoaResumoTelaDiaria) tupla_adapter.getItem(i)).getNome();
+            boolean ida = ((PessoaResumoTelaDiaria) tupla_adapter.getItem(i)).isIda();
+            boolean volta = ((PessoaResumoTelaDiaria) tupla_adapter.getItem(i)).isVolta();
+            int id = ((PessoaResumoTelaDiaria) tupla_adapter.getItem(i)).getId_pessoa();
 
-        //View rowView = tuplas.getView(position);
+            System.out.println("Nome: " + nome + "Id: "+ id + " Ida: " + ida + " Volta: "+ volta);
 
-        //boolean tf = rowView.findViewById(R.id.checkBoxIda).is
-        //System.out.println(String.valueOf(tf));
+            if(ida || volta){
+                try{
+                    banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
 
-        //View rowView = listviewCorridasDiaria.getChildAt(position);
-        //checkBoxIda = (CheckBox) rowView.findViewById(R.id.checkBoxIda);
+                    Cursor meuCursor = banco.rawQuery("SELECT valor_por_corrida FROM tb_pessoa WHERE id_pessoa = " + id +";", null);
+                    double val = 0.1f;
+                    if (meuCursor.moveToFirst()) {
+                        do {
+                            val = meuCursor.getDouble((int) meuCursor.getColumnIndex("valor_por_corrida"));
+                            System.out.println(">>>VALOR POR CORRIDA DO CARA >>> " + val);
+                        } while (meuCursor.moveToNext());
+                    }
 
-        //checkBoxVolta = (CheckBox) rowView.findViewById(R.id.checkBoxVolta);
-        //txt_nome = (TextView) rowView.findViewById(R.id.txt_nome);
-        //System.out.println(txt_nome + " " + String.valueOf(checkBoxIda.isChecked()) + " " + String.valueOf(checkBoxVolta.isChecked()));
+                    if(ida){
+                        String sql = "INSERT INTO tb_viagem(id_pessoa, id_tipo, data, valor) VALUES(?,?,?,?);";
+                        SQLiteStatement stmt = banco.compileStatement(sql);
+                        stmt.bindString(1, String.valueOf(id));
+                        stmt.bindString(2, "1");
+                        String data_insert = _ano + "/" + _mes + "/" + _data;
+                        stmt.bindString(3, data_insert);
+                        stmt.bindString(4, String.valueOf(val));
+                        stmt.executeInsert();
+                    }
+                    if(volta){
+                        String sql = "INSERT INTO tb_viagem(id_pessoa, id_tipo, data, valor) VALUES(?,?,?,?);";
+                        SQLiteStatement stmt = banco.compileStatement(sql);
+                        stmt.bindString(1, String.valueOf(id));
+                        stmt.bindString(2, "2");
+                        String data_insert = _ano + "/" + _mes + "/" + _data;
+                        stmt.bindString(3, data_insert);
+                        stmt.bindString(4, String.valueOf(val));
+                        stmt.executeInsert();
+                    }
 
+                    banco.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 
 }

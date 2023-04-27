@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class AdicionarPessoa extends AppCompatActivity {
     //LEMBRAR DE FAZER O OVERRIDE ONRESUME PARA ATUALIZAR
 
-    public TextView textAddNome, textAddSobrenome, textAddApelido, textAddTelefone, textAddBairro, textAddRua, textAddNumero;
+    public TextView textAddNome, textAddSobrenome, textAddApelido, textAddTelefone, textAddBairro, textAddRua, textAddNumero, textValorPagoPorViagem;
     public Button buttonAddPessoa;
     private SQLiteDatabase banco;
     private static final String DATABASE_NAME = "banco_de_dados_carbill";
@@ -32,6 +32,7 @@ public class AdicionarPessoa extends AppCompatActivity {
         textAddNumero= (TextView) findViewById(R.id.textAddNumero);
         textAddTelefone= (TextView) findViewById(R.id.textAddTelefone);
         textAddBairro = (TextView) findViewById(R.id.textAddBairro);
+        textValorPagoPorViagem = (TextView) findViewById(R.id.textValorPagoPorViagem);
         buttonAddPessoa = (Button) findViewById(R.id.buttonAddPessoa);
 
         buttonAddPessoa.setOnClickListener(new View.OnClickListener() {
@@ -52,13 +53,14 @@ public class AdicionarPessoa extends AppCompatActivity {
         String strRua = textAddRua.getText().toString();
         String strBairro = textAddBairro.getText().toString();
         String strNumero = textAddNumero.getText().toString();
+        String strValorPagoPorViagem = textValorPagoPorViagem.getText().toString();
 
-        if(TextUtils.isEmpty(strNome) ||TextUtils.isEmpty(strSobrenome) || TextUtils.isEmpty(strApelido) || TextUtils.isEmpty(strTelefone) ||TextUtils.isEmpty(strRua) || TextUtils.isEmpty(strBairro) ||TextUtils.isEmpty(strNumero)){
+        if(TextUtils.isEmpty(strNome) ||TextUtils.isEmpty(strSobrenome) || TextUtils.isEmpty(strApelido) || TextUtils.isEmpty(strTelefone) ||TextUtils.isEmpty(strRua) || TextUtils.isEmpty(strBairro) || TextUtils.isEmpty(strNumero) || TextUtils.isEmpty(strValorPagoPorViagem)){
             Toast.makeText(this, "Falha no cadastro.\nPreencha todos os campos.", Toast.LENGTH_SHORT).show();
         }else{
             try{
                 banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-                String sql = "INSERT INTO tb_pessoa (nome, sobrenome, apelido, telefone, rua, bairro, numero) VALUES (?,?,?,?,?,?,?);";
+                String sql = "INSERT INTO tb_pessoa (nome, sobrenome, apelido, telefone, rua, bairro, numero, valor_por_corrida) VALUES (?,?,?,?,?,?,?,?);";
                 SQLiteStatement stmt = banco.compileStatement(sql);
                 stmt.bindString(1, strNome);
                 stmt.bindString(2, strSobrenome);
@@ -67,6 +69,7 @@ public class AdicionarPessoa extends AppCompatActivity {
                 stmt.bindString(5, strRua);
                 stmt.bindString(6, strBairro);
                 stmt.bindString(7, strNumero);
+                stmt.bindString(8, strValorPagoPorViagem);
                 stmt.executeInsert();
                 banco.close();
                 Toast.makeText(this, "Cadastro realizado com sucesso.", Toast.LENGTH_SHORT).show();
@@ -85,7 +88,7 @@ public class AdicionarPessoa extends AppCompatActivity {
         textAddNumero.setText("");
         textAddTelefone.setText("");
         textAddBairro.setText("");
-        buttonAddPessoa.setText("");
+        textValorPagoPorViagem.setText("");
     }
 
 }

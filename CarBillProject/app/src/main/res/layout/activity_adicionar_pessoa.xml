@@ -24,8 +24,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="343dp"
-        android:layout_height="445dp"
+        android:layout_width="341dp"
+        android:layout_height="492dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +89,14 @@
             android:ems="10"
             android:hint="Número"
             android:inputType="number" />
+
+        <EditText
+            android:id="@+id/textValorPagoPorViagem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Valor pago por viagem"
+            android:inputType="number|numberDecimal" />
 
         <Button
             android:id="@+id/buttonAddPessoa"

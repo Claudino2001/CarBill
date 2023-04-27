@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public ListView listviewTelaInicial;
     private SQLiteDatabase banco;
     private static final String DATABASE_NAME = "banco_de_dados_carbill";
+    ArrayList<PessoaResumoTelaInical> pessoas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listviewTelaInicial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, TelaInfoPerson.class);
+                intent.putExtra("nome", pessoas.get(i).getNome());
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void criarBancoDeDados(){
@@ -83,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                     "telefone VARCHAR (100) NOT NULL," +
                     "rua VARCHAR (100) NOT NULL," +
                     "bairro VARCHAR (100) NOT NULL," +
-                    "numero VARCHAR (100) NOT NULL" +
+                    "numero VARCHAR (100) NOT NULL," +
+                    "valor_por_corrida DECIMAL(10,5) NOT NULL" +
                     ");");
             banco.execSQL("CREATE TABLE IF NOT EXISTS tb_viagem(" +
                     "id_viagem INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -121,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     "group by nome " +
                     "order by data;", null);
 
-            ArrayList<PessoaResumoTelaInical> pessoas = new ArrayList<PessoaResumoTelaInical>();
+            pessoas = new ArrayList<PessoaResumoTelaInical>();
 
             if (meuCursor.moveToFirst()) {
                 do {
@@ -149,4 +161,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listarDadosTelaInicial();
+    }
 }
