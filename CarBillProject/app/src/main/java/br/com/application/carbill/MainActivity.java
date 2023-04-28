@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -40,15 +41,8 @@ public class MainActivity extends AppCompatActivity {
         textValorTotal = (TextView) findViewById(R.id.textValorTotal);
 
         criarBancoDeDados();
+        //inserirTiposDeViagem();
         listarDadosTelaInicial();
-
-        //btnInfoPessoa = (Button) findViewById(R.id.btnInfoPessoa);
-        /*
-            ListView lista = (ListView) findViewById(R.id.listviewTelaInicial);
-            ArrayAdapter adapter = new AdapterTuplaPessoaTelaInicial(this,addPessoas());
-            lista.setAdapter(adapter);
-         */
-
 
         buttonCorridaDiaria.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, TelaInfoPerson.class);
-                intent.putExtra("nome", pessoas.get(i).getNome());
+                intent.putExtra("id_pessoa", pessoas.get(i).getId_pessoa());
+                System.out.println("\n\nOLHA ISSO VEI: " + pessoas.get(i).getId_pessoa() + "\n\n");
                 startActivity(intent);
             }
         });
@@ -123,11 +118,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void inserirTiposDeViagem(){
+        try{
+            banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+
+            Cursor cursor = banco.rawQuery("SELECT id_tipo, tipo FROM tb_tipo where id_tipo = 1;", null);
+            int id_tipo = cursor.getInt((int) cursor.getColumnIndex("id_tipo"));
+            String tipo = cursor.getString((int) cursor.getColumnIndex("tipo"));
+            System.out.println("<><><> id_tipo: " + id_tipo + " tipo: " + tipo + " <><><>");
+
+        }catch (Exception e){
+            Toast.makeText(this, "erro: inserirTiposDeViagem", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
     public void listarDadosTelaInicial(){
         try{
             banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
 
-            Cursor meuCursor = banco.rawQuery("SELECT nome, SUM(valor) Total FROM TB_PESSOA " +
+            Cursor meuCursor = banco.rawQuery("SELECT TB_PESSOA.id_pessoa, TB_PESSOA.apelido, SUM(valor) Total FROM TB_PESSOA " +
                     "INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa " +
                     "INNER JOIN tb_tipo ON tb_viagem.id_tipo = tb_tipo.id_tipo " +
                     "group by nome " +
@@ -137,9 +147,11 @@ public class MainActivity extends AppCompatActivity {
 
             if (meuCursor.moveToFirst()) {
                 do {
-                    String nome = meuCursor.getString((int) meuCursor.getColumnIndex("nome"));
+                    String nome = meuCursor.getString((int) meuCursor.getColumnIndex("apelido"));
                     double total = meuCursor.getDouble((int) meuCursor.getColumnIndex("Total"));
-                    PessoaResumoTelaInical pessoa = new PessoaResumoTelaInical(nome, total);
+                    int id_pessoa = meuCursor.getInt((int) meuCursor.getColumnIndex("id_pessoa"));
+                    System.out.println(">>>>>>>>>>> ID_PESSOA: " + id_pessoa);
+                    PessoaResumoTelaInical pessoa = new PessoaResumoTelaInical(id_pessoa, nome, total);
                     pessoas.add(pessoa);
                 } while (meuCursor.moveToNext());
 
@@ -150,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     total_das_dividas += pessoas.get(i).getTotal();
                 }
 
-                System.out.println(">>>>> Total das dividas: " + total_das_dividas + "\n");
+                //System.out.println(">>>>> Total das dividas: " + total_das_dividas + "\n");
                 listviewTelaInicial.setAdapter(adapter);
                 textValorTotal.setText("TOTAL\nR$: " + total_das_dividas);
                 banco.close();
