@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     "INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa " +
                     "INNER JOIN tb_tipo ON tb_viagem.id_tipo = tb_tipo.id_tipo " +
                     "group by nome " +
-                    "order by data;", null);
+                    "order by Total desc;", null);
 
             pessoas = new ArrayList<PessoaResumoTelaInical>();
 
@@ -174,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        listarDadosTelaInicial();
         super.onResume();
+        listarDadosTelaInicial();
     }
     
     public void registrarTiposDeViagem(){

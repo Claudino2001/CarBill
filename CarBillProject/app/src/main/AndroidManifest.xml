@@ -18,7 +18,8 @@
             android:name=".TelaConfiguracoes"
             android:exported="false"
             android:label="Configurações"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TelaInfoPerson"
             android:exported="false"

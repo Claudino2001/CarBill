@@ -79,12 +79,12 @@ public class TelaDiaria extends AppCompatActivity {
         try{
             banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
 
-            Cursor meuCursor = banco.rawQuery("SELECT id_pessoa,nome FROM tb_pessoa;", null);
+            Cursor meuCursor = banco.rawQuery("SELECT id_pessoa,apelido FROM tb_pessoa order by apelido desc;", null);
 
             if (meuCursor.moveToFirst()) {
                 do {
                     int id_pessoa = meuCursor.getInt((int) meuCursor.getColumnIndex("id_pessoa"));
-                    String nome = meuCursor.getString((int) meuCursor.getColumnIndex("nome"));
+                    String nome = meuCursor.getString((int) meuCursor.getColumnIndex("apelido"));
                     PessoaResumoTelaDiaria pessoa = new PessoaResumoTelaDiaria(nome, id_pessoa);
                     pessoas.add(pessoa);
                 } while (meuCursor.moveToNext());

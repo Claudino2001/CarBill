@@ -12,8 +12,10 @@
         android:id="@+id/titulodaTelaCorridaDiaria2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginBottom="21dp"
         android:foregroundGravity="center"
         android:gravity="center"
         android:text="Configurações"
@@ -22,43 +24,22 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="388dp"
-        android:layout_height="568dp"
+        android:layout_width="387dp"
+        android:layout_height="513dp"
         android:layout_marginStart="11dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="27dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="52dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/txtCreatedBy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/inputNovoValorCorrida"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Alterar valor da corrida"
-                android:inputType="number|numberDecimal" />
-
-            <Button
-                android:id="@+id/btnConfirmarNovoValorCorrida"
-                android:layout_width="28dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ok" />
-        </LinearLayout>
 
         <Button
             android:id="@+id/btnContatos"
@@ -68,20 +49,39 @@
             android:drawableLeft="@drawable/ic_contacts_black"
             android:gravity="center|left"
             android:isScrollContainer="false"
+            android:padding="24dp"
             android:text="   Meus Contatos"
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btnContatos2"
+
+            android:id="@+id/btnGitHub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:drawableLeft="@drawable/ic_github_1"
             android:gravity="center|left"
             android:isScrollContainer="false"
+            android:padding="24dp"
             android:text="   Github do Projeto"
             android:textAllCaps="false" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtCreatedBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="118dp"
+        android:layout_marginEnd="118dp"
+        android:layout_marginBottom="16dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Created by Gabriel Claudino"
+        android:textAlignment="center"
+        android:textColor="#AFAEAE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

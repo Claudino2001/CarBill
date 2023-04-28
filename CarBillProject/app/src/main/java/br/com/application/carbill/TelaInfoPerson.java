@@ -157,7 +157,6 @@ public class TelaInfoPerson extends AppCompatActivity {
                 quitarDivida();
                 listarInformacoes();
                 finish();
-                startActivity(new Intent(TelaInfoPerson.this, MainActivity.class));
                 Toast.makeText(TelaInfoPerson.this, pessoa.getNome() + pessoa.getSobrenome() + " não possui mais dívidas.", Toast.LENGTH_SHORT).show();
             }
         });
