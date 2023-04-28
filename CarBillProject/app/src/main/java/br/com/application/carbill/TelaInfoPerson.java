@@ -41,7 +41,7 @@ public class TelaInfoPerson extends AppCompatActivity {
         }
 
         System.out.println(">>>> ID RECEBIDO: " + id);
-        Toast.makeText(this, "id_pessoa: " + id, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "id_pessoa: " + id, Toast.LENGTH_SHORT).show();
 
         listarInformacoes();
 
@@ -78,18 +78,23 @@ public class TelaInfoPerson extends AppCompatActivity {
                     "INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa " +
                     "INNER JOIN tb_tipo ON tb_viagem.id_tipo = tb_tipo.id_tipo " +
                     "where tb_pessoa.id_pessoa = "+ pessoa.getId_pessoa() + ";", null);
-            double Total = cursor.getDouble((int) cursor.getColumnIndex("Total"));
-            System.out.println("MINHA VOIDA::: " + Total);
+
+            if(CursorTwo.moveToFirst()){
+                do{
+                    double total = CursorTwo.getDouble((int) CursorTwo.getColumnIndex("Total"));
+                    //System.out.println("MINHA VOIDA::: " + total);
+                    pessoa.setDivida_total(total);
+                }while (CursorTwo.moveToNext());
+            }
+            CursorTwo.close();
+
+            txtDividaTotal.setText("Dívida total R$: " + pessoa.getDivida_total());
 
             banco.close();
         }catch (Exception e){
-            Toast.makeText(this, "Erro.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "erro: listarInformacoes", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
-
-    public void acessarBanco(){
-
-    }
-
+    
 }
