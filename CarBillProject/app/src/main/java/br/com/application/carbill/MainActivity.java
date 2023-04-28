@@ -64,13 +64,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, TelaConfiguracoes.class));
             }
         });
+        
+        buttonConfig.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                registrarTiposDeViagem();
+                return true;
+            }
+        });
 
         listviewTelaInicial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, TelaInfoPerson.class);
-                intent.putExtra("id_pessoa", pessoas.get(i).getId_pessoa());
-                System.out.println("\n\nOLHA ISSO VEI: " + pessoas.get(i).getId_pessoa() + "\n\n");
+                try{
+                    intent.putExtra("id_pessoa", pessoas.get(i).getId_pessoa());
+
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this, "erro: intent.putExtra(id)", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+                //System.out.println("\n\nOLHA ISSO VEI: " + pessoas.get(i).getId_pessoa() + "\n\n");
                 startActivity(intent);
             }
         });
@@ -108,27 +122,12 @@ public class MainActivity extends AppCompatActivity {
 
             //EXECUTAR SÓ UMA VEZ
             //banco.execSQL("INSERT INTO tb_pessoa (nome, sobrenome, apelido, telefone, rua, bairro, numero) VALUES ('fulano', 'de tal', 'teste', 123, '234', '234', '123');");
+            //banco.execSQL("INSERT INTO tb_viagem (id_pessoa, id_tipo, data, valor) VALUES (1, 1, '2023-01-01', 5.50);");
             //banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('IDA');");
             //banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('VOLTA');");
-            //banco.execSQL("INSERT INTO tb_viagem (id_pessoa, id_tipo, data, valor) VALUES (1, 1, '2023-01-01', 5.50);");
 
             banco.close();
         }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void inserirTiposDeViagem(){
-        try{
-            banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-
-            Cursor cursor = banco.rawQuery("SELECT id_tipo, tipo FROM tb_tipo where id_tipo = 1;", null);
-            int id_tipo = cursor.getInt((int) cursor.getColumnIndex("id_tipo"));
-            String tipo = cursor.getString((int) cursor.getColumnIndex("tipo"));
-            System.out.println("<><><> id_tipo: " + id_tipo + " tipo: " + tipo + " <><><>");
-
-        }catch (Exception e){
-            Toast.makeText(this, "erro: inserirTiposDeViagem", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -175,7 +174,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         listarDadosTelaInicial();
+        super.onResume();
     }
+    
+    public void registrarTiposDeViagem(){
+        try {
+            banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+            banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('IDA');");
+            banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('VOLTA');");
+            banco.close();
+            Toast.makeText(this, "Tipos de viagem adicionados.", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(this, "erro: registrarTiposDeViagem", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+    
 }
