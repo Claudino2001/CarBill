@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class Tela_infos_do_cadastro extends AppCompatActivity {
@@ -128,12 +129,13 @@ public class Tela_infos_do_cadastro extends AppCompatActivity {
 
     public void btnExcluir(){
         if(temDivida()){
-            Toast.makeText(this, "Impossível excluir. Esse usuário ainda possui uma dívida de R$: " + pessoa.getDivida_total(), Toast.LENGTH_SHORT).show();
+            String valorFormatado_DividaTotal = NumberFormat.getCurrencyInstance().format(pessoa.getDivida_total());
+            Toast.makeText(this, "Impossível excluir. Esse usuário ainda possui uma dívida de " + valorFormatado_DividaTotal, Toast.LENGTH_SHORT).show();
         }else{
             AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
             msgBox.setTitle("EXCLUIR CADASTRO");
             msgBox.setIcon(R.drawable.ic_lixeira);
-            msgBox.setMessage("Tem certeza que deseja excluir permanentemente esse cadastro.\nEssa ação não pode ser desfeita.");
+            msgBox.setMessage("Tem certeza que deseja excluir permanentemente esse cadastro?\nEssa ação não pode ser desfeita.");
             msgBox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -145,7 +147,7 @@ public class Tela_infos_do_cadastro extends AppCompatActivity {
             msgBox.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(Tela_infos_do_cadastro.this, "Oreração cancelada.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Tela_infos_do_cadastro.this, "Operação cancelada.", Toast.LENGTH_SHORT).show();
                 }
             });
             msgBox.show();

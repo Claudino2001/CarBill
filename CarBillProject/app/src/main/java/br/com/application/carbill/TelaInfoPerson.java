@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class TelaInfoPerson extends AppCompatActivity {
@@ -62,6 +65,54 @@ public class TelaInfoPerson extends AppCompatActivity {
             }
         });
 
+        listViewHistorico.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int id_viagem = viagens.get(i).getId_viagem();
+
+                confirmarDeletar(id_viagem);
+
+                return true;
+            }
+        });
+
+    }
+
+    void confirmarDeletar(int id){
+        AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
+        msgBox.setTitle("EXCLUIR VIAGEM");
+        msgBox.setIcon(R.drawable.ic_lixeira);
+        msgBox.setMessage("Tem certeza que deseja excluir permanentemente essa corrida?.\nEssa ação não pode ser desfeita.");
+        msgBox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deletarCarona(id);
+                listarInformacoes();
+            }
+        });
+        msgBox.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(TelaInfoPerson.this, "Operação cancelada.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        msgBox.show();
+    }
+
+    void deletarCarona(int id){
+        try{
+            banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+
+            String sql = "DELETE FROM TB_VIAGEM WHERE id_viagem = ?";
+            SQLiteStatement stmt = banco.compileStatement(sql);
+            stmt.bindLong(1, id);
+            stmt.executeUpdateDelete();
+            banco.close();
+
+            Toast.makeText(this, "Viagem excluida com sucesso.", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void listarInformacoes(){
@@ -94,7 +145,8 @@ public class TelaInfoPerson extends AppCompatActivity {
             // ---------------------------------------------------------------------------------------//
             txtNome.setText(pessoa.getNome() + " " +pessoa.getSobrenome());
             txtApelido.setText("Vulgo " + pessoa.getApelido());
-            txtValorPorViagem.setText("Paga R$: " + new DecimalFormat(".##").format(pessoa.valor_por_corrida) + " por viagem");
+            String valorFormatado_PorCorrida = NumberFormat.getCurrencyInstance().format(pessoa.valor_por_corrida);
+            txtValorPorViagem.setText("Paga "+ valorFormatado_PorCorrida + " por viagem");
 
             Cursor CursorTwo = banco.rawQuery("SELECT SUM(valor) Total FROM TB_PESSOA " +
                     "INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa " +
@@ -110,7 +162,8 @@ public class TelaInfoPerson extends AppCompatActivity {
             }
             CursorTwo.close();
 
-            txtDividaTotal.setText("Dívida total R$: " +  new DecimalFormat(".##").format(pessoa.getDivida_total()));
+            String valorFormatado_DividaTotal = NumberFormat.getCurrencyInstance().format(pessoa.getDivida_total());
+            txtDividaTotal.setText("Dívida total " + valorFormatado_DividaTotal);
 
             // ---------------------------------------------------------------------------------------//
             // ------------------   POVOANDO A LISTA DE HITÓRICO DE VIAGENS --------------------------//

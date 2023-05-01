@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class AdapterTuplaPessoaTelaInicial extends ArrayAdapter<PessoaResumoTelaInical> {
@@ -33,7 +34,8 @@ public class AdapterTuplaPessoaTelaInicial extends ArrayAdapter<PessoaResumoTela
         TextView txt_divida_total = (TextView) rowView.findViewById(R.id.txt_divida_total);
 
         txt_apelido.setText(elementos.get(position).getNome());
-        txt_divida_total.setText(String.valueOf("R$: " + new DecimalFormat(".##").format(elementos.get(position).getTotal())));
+        String valorFormatado = NumberFormat.getCurrencyInstance().format(elementos.get(position).getTotal());
+        txt_divida_total.setText(String.valueOf(valorFormatado));
 
         return rowView;
     }
