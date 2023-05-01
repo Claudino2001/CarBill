@@ -14,7 +14,7 @@
         android:fontFamily="sans-serif"
         android:foregroundGravity="center"
         android:gravity="center"
-        android:text="Car Bill"
+        android:text="CarBill"
         android:textColor="@color/black"
         android:textSize="42dp"
         android:textStyle="bold"
@@ -50,8 +50,8 @@
 
     <ImageButton
         android:id="@+id/buttonConfig"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:background="@color/white"

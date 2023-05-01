@@ -29,5 +29,12 @@ public class TelaConfiguracoes extends AppCompatActivity {
             }
         });
 
+        btnContatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TelaConfiguracoes.this, TelaContatos.class));
+            }
+        });
+
     }
 }

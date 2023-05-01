@@ -3,10 +3,25 @@ package br.com.application.carbill;
 import java.text.DecimalFormat;
 
 public class ClassPessoa {
-    private String nome, sobrenome, apelido, telefone, rua, bairro, numero;
+    private String nome, sobrenome, apelido, telefone, rua, bairro;
+
+    int numero;
+    int id;
     private double divida_total = 0.0f;
 
-    public ClassPessoa(String nome, String sobrenome, String apelido, String telefone, String rua, String bairro, String numero) {
+    private double valor_por_corrida = 0.0f;
+
+    public ClassPessoa() {
+    }
+
+    public ClassPessoa(int id, String nome, String sobrenome, String apelido) {
+        this.id = id;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.apelido = apelido;
+    }
+
+    public ClassPessoa(String nome, String sobrenome, String apelido, String telefone, String rua, String bairro, int numero, double valor_por_corrida) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.apelido = apelido;
@@ -14,6 +29,23 @@ public class ClassPessoa {
         this.rua = rua;
         this.bairro = bairro;
         this.numero = numero;
+        this.valor_por_corrida = valor_por_corrida;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getValor_por_corrida() {
+        return valor_por_corrida;
+    }
+
+    public void setValor_por_corrida(double valor_por_corrida) {
+        this.valor_por_corrida = valor_por_corrida;
     }
 
     public double getDivida_total() {
@@ -48,7 +80,7 @@ public class ClassPessoa {
         this.bairro = bairro;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -76,7 +108,7 @@ public class ClassPessoa {
         return bairro;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 }

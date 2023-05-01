@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //System.out.println(">>>>> Total das dividas: " + total_das_dividas + "\n");
                 listviewTelaInicial.setAdapter(adapter);
-                textValorTotal.setText("TOTAL\nR$: " + total_das_dividas);
+                textValorTotal.setText("TOTAL\nR$: " + new DecimalFormat(".##").format(total_das_dividas));
                 banco.close();
             }
 

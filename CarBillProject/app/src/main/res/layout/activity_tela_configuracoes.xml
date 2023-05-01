@@ -50,7 +50,7 @@
             android:gravity="center|left"
             android:isScrollContainer="false"
             android:padding="24dp"
-            android:text="   Meus Contatos"
+            android:text="   Pessoas Cadastradas"
             android:textAllCaps="false" />
 
         <Button

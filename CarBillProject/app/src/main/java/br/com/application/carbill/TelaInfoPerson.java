@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class TelaInfoPerson extends AppCompatActivity {
@@ -93,7 +94,7 @@ public class TelaInfoPerson extends AppCompatActivity {
             // ---------------------------------------------------------------------------------------//
             txtNome.setText(pessoa.getNome() + " " +pessoa.getSobrenome());
             txtApelido.setText("Vulgo " + pessoa.getApelido());
-            txtValorPorViagem.setText("Paga R$: " + pessoa.valor_por_corrida + " por viagem");
+            txtValorPorViagem.setText("Paga R$: " + new DecimalFormat(".##").format(pessoa.valor_por_corrida) + " por viagem");
 
             Cursor CursorTwo = banco.rawQuery("SELECT SUM(valor) Total FROM TB_PESSOA " +
                     "INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa " +
@@ -109,12 +110,12 @@ public class TelaInfoPerson extends AppCompatActivity {
             }
             CursorTwo.close();
 
-            txtDividaTotal.setText("Dívida total R$: " + pessoa.getDivida_total());
+            txtDividaTotal.setText("Dívida total R$: " +  new DecimalFormat(".##").format(pessoa.getDivida_total()));
 
             // ---------------------------------------------------------------------------------------//
             // ------------------   POVOANDO A LISTA DE HITÓRICO DE VIAGENS --------------------------//
             // ---------------------------------------------------------------------------------------//
-            Cursor CursorTres = banco.rawQuery("SELECT id_viagem, id_tipo, data, valor FROM TB_VIAGEM where id_pessoa = " + pessoa.getId_pessoa() + ";", null);
+            Cursor CursorTres = banco.rawQuery("SELECT id_viagem, id_tipo, data, valor FROM TB_VIAGEM where id_pessoa = " + pessoa.getId_pessoa() + " ORDER BY data desc;", null);
 
             viagens = new ArrayList<HistoricoDeViagem>();
 
@@ -148,7 +149,7 @@ public class TelaInfoPerson extends AppCompatActivity {
 
     public void solicitarConfirmacao(){
         AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
-        msgBox.setTitle("Quitar dívida do carona.");
+        msgBox.setTitle("QUITAR DIVIDA");
         msgBox.setIcon(R.drawable.ic_cifrao);
         msgBox.setMessage("Confirme a quitação da dívida do carona.\nAo fazer isso, todas as viagens até o momento serão quitadas e não vão mais constar no histórico.");
         msgBox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {

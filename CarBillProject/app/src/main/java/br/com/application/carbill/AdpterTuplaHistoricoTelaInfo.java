@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class AdpterTuplaHistoricoTelaInfo extends ArrayAdapter<HistoricoDeViagem> {
@@ -35,7 +36,7 @@ public class AdpterTuplaHistoricoTelaInfo extends ArrayAdapter<HistoricoDeViagem
             tipo.setText("IDA");
         else
             tipo.setText("VOLTA");
-        valor.setText("R$: " + viagem.get(position).getValor());
+        valor.setText("R$: " + new DecimalFormat(".##").format(viagem.get(position).getValor()));
 
         return rowView;
     }

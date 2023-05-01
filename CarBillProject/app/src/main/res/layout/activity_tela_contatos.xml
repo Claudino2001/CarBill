@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaContatos">
+
+    <TextView
+        android:id="@+id/textTitulo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:fontFamily="sans-serif"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Cadastros"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="42dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNumContatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="131dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="N contatos cadastrados"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitulo3" />
+
+    <ImageButton
+        android:id="@+id/btnExcluir"
+        android:layout_width="47dp"
+        android:layout_height="51dp"
+        android:src="@drawable/ic_lixeira"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <ListView
+        android:id="@+id/listPessoas"
+        android:layout_width="368dp"
+        android:layout_height="562dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNumContatos" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
