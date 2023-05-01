@@ -60,6 +60,8 @@ public class TelaContatos extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
             }
         });
 
@@ -102,6 +104,12 @@ public class TelaContatos extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         listarPessoas();
+    }
+
+    @Override
+    public void finish(){
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     public void deletarTudo(){

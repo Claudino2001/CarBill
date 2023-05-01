@@ -234,4 +234,10 @@ public class TelaInfoPerson extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void finish(){
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_cima, R.anim.slide_out_baixo);
+    }
+
 }

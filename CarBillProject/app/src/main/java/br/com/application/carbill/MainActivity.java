@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, TelaDiaria.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -57,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, AdicionarPessoa.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
             }
         });
 
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, TelaConfiguracoes.class));
+                overridePendingTransition(R.anim.slide_in_cima, R.anim.slide_out_baixo);
             }
         });
         
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //System.out.println("\n\nOLHA ISSO VEI: " + pessoas.get(i).getId_pessoa() + "\n\n");
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_baixo, R.anim.slide_out_cima);
+
             }
         });
 
