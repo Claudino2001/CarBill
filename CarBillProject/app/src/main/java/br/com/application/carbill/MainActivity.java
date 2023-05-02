@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         criarBancoDeDados();
         //inserirTiposDeViagem();
         listarDadosTelaInicial();
+        insetTiposViagem();
 
         buttonCorridaDiaria.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         
-        buttonConfig.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                registrarTiposDeViagem();
-                return true;
-            }
-        });
+//        buttonConfig.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                registrarTiposDeViagem();
+//                return true;
+//            }
+//        });
 
         listviewTelaInicial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -196,6 +197,55 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "erro: registrarTiposDeViagem", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+    }
+
+    public void insetTiposViagem(){
+        if(tabelaTipoIsEmpty()){
+            try {
+                banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+                banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('IDA');");
+                banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('VOLTA');");
+                banco.close();
+//                Toast.makeText(this, "Tipos de viagem adicionados.", Toast.LENGTH_SHORT).show();
+            }catch (Exception e){
+                Toast.makeText(this, "erro: insetTiposViagem()", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean tabelaTipoIsEmpty(){
+        boolean isEmpty = false;
+        ArrayList<Classe_tb_tipo> tipos = new ArrayList<>();
+        try{
+            banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+
+            Cursor cursor = banco.rawQuery("SELECT id_tipo, tipo FROM tb_tipo",null);
+
+            if(cursor.moveToFirst()){
+                do{
+                    Classe_tb_tipo t;
+                    int id_tipo = cursor.getInt((int) cursor.getColumnIndex("id_tipo"));
+                    String tipo = cursor.getString((int) cursor.getColumnIndex("tipo"));
+                    t = new Classe_tb_tipo(id_tipo, tipo);
+                    tipos.add(t);
+                }while (cursor.moveToNext());
+            }
+
+            if(tipos.size() > 0){
+                System.out.println("Povoada/false");
+                isEmpty = false;
+            }else{
+                System.out.println("Nada/Vazia");
+                isEmpty = true;
+            }
+
+            cursor.close();
+            banco.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isEmpty;
     }
     
 }
