@@ -25,7 +25,7 @@
         android:id="@+id/buttonRegistroDiario"
         android:layout_width="118dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="40dp"
         android:text="Registrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -82,7 +82,7 @@ public class TelaInfoPerson extends AppCompatActivity {
         AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
         msgBox.setTitle("EXCLUIR VIAGEM");
         msgBox.setIcon(R.drawable.ic_lixeira);
-        msgBox.setMessage("Tem certeza que deseja excluir permanentemente essa corrida?.\nEssa ação não pode ser desfeita.");
+        msgBox.setMessage("Tem certeza que deseja excluir permanentemente essa corrida?\nEssa ação não pode ser desfeita.");
         msgBox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

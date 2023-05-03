@@ -6,90 +6,95 @@
     android:layout_height="match_parent"
     tools:context=".TelaInfoPerson">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/txtNome"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="46dp"
-            android:layout_marginTop="34dp"
-            android:layout_marginEnd="47dp"
-            android:foregroundGravity="center"
-            android:gravity="center"
-            android:text="Nome da Pessoa"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="42dp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtApelido"
-            android:layout_width="176dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="183dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="183dp"
-            android:text="Vulgo "
-            android:textAlignment="center"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txtNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="46dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="47dp"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:text="Nome da Pessoa"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="42dp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtDividaTotal"
-            android:layout_width="306dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_marginStart="46dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="199dp"
-            android:layout_marginBottom="13dp"
-            android:text="Dívida total R$: --,--"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/txtApelido"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="183dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="183dp"
+                android:text="Vulgo "
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/txtValorPorViagem"
-            android:layout_width="313dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_marginStart="46dp"
-            android:layout_marginEnd="148dp"
-            android:layout_marginBottom="32dp"
-            android:text="Paga R$: --,-- por viagem"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/txtDividaTotal"
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginStart="46dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="199dp"
+                android:layout_marginBottom="13dp"
+                android:text="Dívida total R$: --,--"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-        <ListView
-            android:id="@+id/listViewHistorico"
-            android:layout_width="326dp"
-            android:layout_height="371dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="42dp"
-            android:layout_marginEnd="43dp"
-            android:layout_marginBottom="39dp"
-            android:background="#F3F3F3" />
+            <TextView
+                android:id="@+id/txtValorPorViagem"
+                android:layout_width="313dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginStart="46dp"
+                android:layout_marginEnd="148dp"
+                android:layout_marginBottom="32dp"
+                android:text="Paga R$: --,-- por viagem"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/btnQuitarDivida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginStart="42dp"
-            android:layout_marginEnd="249dp"
-            android:layout_marginBottom="39dp"
-            android:gravity="center"
-            android:text="Quitar dívida" />
-    </LinearLayout>
+            <ListView
+                android:id="@+id/listViewHistorico"
+                android:layout_width="326dp"
+                android:layout_height="371dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="43dp"
+                android:layout_marginBottom="39dp"
+                android:background="#F3F3F3" />
+
+            <Button
+                android:id="@+id/btnQuitarDivida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="249dp"
+                android:layout_marginBottom="39dp"
+                android:gravity="center"
+                android:text="Quitar dívida" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

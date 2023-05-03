@@ -146,10 +146,12 @@ public class MainActivity extends AppCompatActivity {
             Cursor meuCursor = banco.rawQuery("SELECT TB_PESSOA.id_pessoa, TB_PESSOA.apelido, SUM(valor) Total FROM TB_PESSOA " +
                     "INNER JOIN tb_viagem ON tb_pessoa.id_pessoa = tb_viagem.id_pessoa " +
                     "INNER JOIN tb_tipo ON tb_viagem.id_tipo = tb_tipo.id_tipo " +
-                    "group by nome " +
+                    "group by TB_PESSOA.id_pessoa " +
                     "order by Total desc;", null);
 
             pessoas = new ArrayList<PessoaResumoTelaInical>();
+            ArrayAdapter<PessoaResumoTelaInical> adapter = null;
+            double total_das_dividas = 0.0f;
 
             if (meuCursor.moveToFirst()) {
                 do {
@@ -161,19 +163,18 @@ public class MainActivity extends AppCompatActivity {
                     pessoas.add(pessoa);
                 } while (meuCursor.moveToNext());
 
-                ArrayAdapter<PessoaResumoTelaInical> adapter = new AdapterTuplaPessoaTelaInicial(this, pessoas);
+                adapter = new AdapterTuplaPessoaTelaInicial(this, pessoas);
 
-                double total_das_dividas = 0.0f;
                 for(int i =0; i < pessoas.size(); i++){
                     total_das_dividas += pessoas.get(i).getTotal();
                 }
-
-                //System.out.println(">>>>> Total das dividas: " + total_das_dividas + "\n");
-                listviewTelaInicial.setAdapter(adapter);
-                String valorFormatado = NumberFormat.getCurrencyInstance().format(total_das_dividas);
-                textValorTotal.setText("TOTAL\n" + valorFormatado);
-                banco.close();
             }
+
+            //System.out.println(">>>>> Total das dividas: " + total_das_dividas + "\n");
+            listviewTelaInicial.setAdapter(adapter);
+            String valorFormatado = NumberFormat.getCurrencyInstance().format(total_das_dividas);
+            textValorTotal.setText("TOTAL\n" + valorFormatado);
+            banco.close();
 
         }catch (Exception e){
             e.printStackTrace();

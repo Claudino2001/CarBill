@@ -90,7 +90,7 @@ public class TelaContatos extends AppCompatActivity {
             }
 
             ArrayAdapter<ClassPessoa> adapter = new AdapterTuplaTodasAsPessoas(this, pessoas);
-            txtNumContatos.setText(pessoas.size() + " contatos cadastrados");
+            txtNumContatos.setText(pessoas.size() + " pessoas cadastradas");
             listPessoas.setAdapter(adapter);
 
             banco.close();

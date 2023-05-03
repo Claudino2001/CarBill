@@ -32,7 +32,7 @@
         android:layout_marginEnd="131dp"
         android:foregroundGravity="center"
         android:gravity="center"
-        android:text="N contatos cadastrados"
+        android:text="N pessoas cadastrados"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
