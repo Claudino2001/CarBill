@@ -28,7 +28,6 @@ public class TelaInfoPerson extends AppCompatActivity {
     public ListView listViewHistorico;
     String strNome;
     int id;
-
     //BANCO
     private SQLiteDatabase banco;
     private static final String DATABASE_NAME = "banco_de_dados_carbill";
@@ -52,9 +51,6 @@ public class TelaInfoPerson extends AppCompatActivity {
         if (extras != null) {
             id = extras.getInt("id_pessoa");
         }
-
-        //System.out.println(">>>> ID RECEBIDO: " + id);
-        //Toast.makeText(this, "id_pessoa: " + id, Toast.LENGTH_SHORT).show();
 
         listarInformacoes();
 
@@ -82,7 +78,7 @@ public class TelaInfoPerson extends AppCompatActivity {
         AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
         msgBox.setTitle("EXCLUIR VIAGEM");
         msgBox.setIcon(R.drawable.ic_lixeira);
-        msgBox.setMessage("Tem certeza que deseja excluir permanentemente essa corrida?\nEssa ação não pode ser desfeita.");
+        msgBox.setMessage("Tem certeza que deseja excluir permanentemente essa viagem?\nEssa ação não pode ser desfeita.");
         msgBox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -202,7 +198,7 @@ public class TelaInfoPerson extends AppCompatActivity {
 
     public void solicitarConfirmacao(){
         AlertDialog.Builder msgBox = new AlertDialog.Builder(this);
-        msgBox.setTitle("QUITAR DIVIDA");
+        msgBox.setTitle("QUITAR DÍVIDA");
         msgBox.setIcon(R.drawable.ic_cifrao);
         msgBox.setMessage("Confirme a quitação da dívida do carona.\nAo fazer isso, todas as viagens até o momento serão quitadas e não vão mais constar no histórico.");
         msgBox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
@@ -211,7 +207,7 @@ public class TelaInfoPerson extends AppCompatActivity {
                 quitarDivida();
                 listarInformacoes();
                 finish();
-                Toast.makeText(TelaInfoPerson.this, pessoa.getNome() + pessoa.getSobrenome() + " não possui mais dívidas.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TelaInfoPerson.this, pessoa.getNome() + " " + pessoa.getSobrenome() + " não possui mais dívidas.", Toast.LENGTH_SHORT).show();
             }
         });
         msgBox.setNegativeButton("Não", new DialogInterface.OnClickListener() {

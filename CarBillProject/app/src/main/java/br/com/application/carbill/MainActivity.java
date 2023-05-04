@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         textValorTotal = (TextView) findViewById(R.id.textValorTotal);
 
         criarBancoDeDados();
-        //inserirTiposDeViagem();
         listarDadosTelaInicial();
         insetTiposViagem();
 
@@ -69,14 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_cima, R.anim.slide_out_baixo);
             }
         });
-        
-//        buttonConfig.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                registrarTiposDeViagem();
-//                return true;
-//            }
-//        });
 
         listviewTelaInicial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "erro: intent.putExtra(id)", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-                //System.out.println("\n\nOLHA ISSO VEI: " + pessoas.get(i).getId_pessoa() + "\n\n");
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_baixo, R.anim.slide_out_cima);
 
@@ -126,12 +116,6 @@ public class MainActivity extends AppCompatActivity {
                     "id_tipo INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "tipo VARCHAR(10) NOT NULL " +
                     ");");
-
-            //EXECUTAR SÓ UMA VEZ
-            //banco.execSQL("INSERT INTO tb_pessoa (nome, sobrenome, apelido, telefone, rua, bairro, numero) VALUES ('fulano', 'de tal', 'teste', 123, '234', '234', '123');");
-            //banco.execSQL("INSERT INTO tb_viagem (id_pessoa, id_tipo, data, valor) VALUES (1, 1, '2023-01-01', 5.50);");
-            //banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('IDA');");
-            //banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('VOLTA');");
 
             banco.close();
         }catch (Exception e){
@@ -185,19 +169,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         listarDadosTelaInicial();
-    }
-    
-    public void registrarTiposDeViagem(){
-        try {
-            banco = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-            banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('IDA');");
-            banco.execSQL("INSERT INTO tb_tipo (tipo) VALUES ('VOLTA');");
-            banco.close();
-            Toast.makeText(this, "Tipos de viagem adicionados.", Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-            Toast.makeText(this, "erro: registrarTiposDeViagem", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
     }
 
     public void insetTiposViagem(){
